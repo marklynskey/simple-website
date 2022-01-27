@@ -29,26 +29,21 @@ const data = [
   },
 ];
 
-const escapeRegexCharacters = (str) =>
-  str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
 const getSuggestions = (value) => {
-  const escapedValue = escapeRegexCharacters(value.trim());
+  const tidy = (str) => str.trim().toLowerCase();
 
-  if (escapedValue === "") {
-    return [];
-  }
-
-  const regex = new RegExp("^" + escapedValue, "i");
-
-  return data
-    .map((section) => {
-      return {
-        title: section.title,
-        branches: section.branches.filter((branch) => regex.test(branch.name)),
-      };
-    })
-    .filter((section) => section.branches.length > 0);
+  return value === ""
+    ? []
+    : data
+        .map((section) => {
+          return {
+            title: section.title,
+            branches: section.branches.filter((branch) =>
+              tidy(branch.name).includes(tidy(value))
+            ),
+          };
+        })
+        .filter((section) => section.branches.length > 0);
 };
 
 const getSuggestionValue = (suggestion) => suggestion.name;
