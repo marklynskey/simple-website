@@ -1,4 +1,6 @@
 import { Routes, Route, Link } from "react-router-dom";
+import SimpleAutosuggest from "./components/SimpleAutosuggest";
+import MultiAutosuggest from "./components/MultiAutosuggest";
 
 const App = () => (
   <>
@@ -15,7 +17,13 @@ const App = () => (
   </>
 );
 
-const Home = () => <h1>Home</h1>;
+const Home = () => (
+  <>
+    <h1>Home</h1>
+    <SimpleAutosuggest />
+    <MultiAutosuggest />
+  </>
+);
 
 const About = () => <h1>About</h1>;
 
